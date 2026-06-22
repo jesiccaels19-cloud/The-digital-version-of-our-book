@@ -90,7 +90,7 @@
         /* --- STYLE SCRAPBOOK UTAMA --- */
         #main-content {
             width: 100%;
-            display: flex;
+            display: none; /* Diatur ke none awal, diaktifkan lewat JS jika sukses kuis */
             flex-direction: column;
             align-items: center;
         }
@@ -105,7 +105,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .book-container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             padding: 40px 20px;
             display: flex;
@@ -137,11 +137,11 @@
     <!-- LAYER KUIS -->
     <div id="quiz-gate">
         <div class="quiz-box">
-            <div class="quiz-header" id="quiz-progress">QUESTION 1 OF 3</div>
+            <div class="quiz-header" id="quiz-progress">PROTOCOL STATUS: QUESTION 1 OF 3</div>
             <p class="question-text" id="question-content">Loading question...</p>
             
             <div class="options-container" id="options-block">
-                <!-- Tombol pilihan ganda bakal muncul otomatis lewat Javascript di bawah -->
+                <!-- Tombol pilihan ganda muncul otomatis -->
             </div>
             
             <p id="error-msg">❌ Akses ditolak. Jawabannya salah, coba pikirkan pakai logika!</p>
@@ -149,51 +149,85 @@
     </div>
 
     <!-- KONTEN BUKU UTAMA -->
-    <div id="main-content" style="display: none;">
+    <div id="main-content">
         <div class="music-container">
-            <!-- Ganti URL di src dengan file mp3 lagu favorit kalian -->
             <audio id="bg-music" controls loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
         </div>
 
         <div class="book-container">
-            <!-- Halaman 1 -->
+            
+            <!-- Cover Depan & Belakang -->
             <div class="page-wrapper">
-                <img class="page-img" src="images/page1.jpg" alt="Page 1">
+                <img class="page-img" src="images/cover%20dan%20backcover.jpg" alt="Cover & Backcover">
             </div>
-            <!-- Halaman 2 -->
+
+            <!-- Halaman 1 & 2 -->
             <div class="page-wrapper">
-                <img class="page-img" src="images/page2.jpg" alt="Page 2">
+                <img class="page-img" src="images/page%201%20%26%202.jpg" alt="Page 1 & 2">
             </div>
-            <!-- Halaman 3 -->
+
+            <!-- Halaman 3 & 4 -->
             <div class="page-wrapper">
-                <img class="page-img" src="images/page3.jpg" alt="Page 3">
+                <img class="page-img" src="images/page%203%20%26%204.jpg" alt="Page 3 & 4">
             </div>
-            <!-- Tambahin terus blok page-wrapper ke bawah sesuai jumlah foto halaman PDF lo -->
+
+            <!-- Halaman 5 & 6 -->
+            <div class="page-wrapper">
+                <img class="page-img" src="images/page%205%20%26%206.jpg" alt="Page 5 & 6">
+            </div>
+
+            <!-- NOTE: Gue bikinin template otomatis di bawah sampai page 49 & 50 biar lo gak capek ngetik manual -->
+            <div class="page-wrapper"><img class="page-img" src="images/page%207%20%26%208.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%209%20%26%2010.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2011%20%26%2012.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2013%20%26%2014.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2015%20%26%2016.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2017%20%26%2018.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2019%20%26%2020.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2021%20%26%2022.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2023%20%26%2024.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2025%20%26%2026.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2027%20%26%2028.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2029%20%26%2030.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2031%20%26%2032.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2033%20%26%2034.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2035%20%26%2036.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2037%20%26%2038.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2039%20%26%2040.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2041%20%26%2042.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2043%20%26%2044.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2045%20%26%2046.jpg"></div>
+            <div class="page-wrapper"><img class="page-img" src="images/page%2047%20%26%2048.jpg"></div>
+            
+            <!-- Halaman Akhir -->
+            <div class="page-wrapper">
+                <img class="page-img" src="images/page%2049%20%26%2050.jpg" alt="Page 49 & 50">
+            </div>
+
         </div>
 
         <div class="footer-note">
-            <p>Made with ❤️ by Elsa | Happy Anniversary ✨</p>
+            <p>Made with ❤️ by Elsa | Happy Anniversary, Jojo ✨</p>
         </div>
     </div>
 
     <!-- LOGIKA JAVASCRIPT KUIS -->
     <script>
-        // Data pertanyaan, pilihan, dan kunci jawaban yang bener (indeks dimulai dari 0)
         var quizData = [
             {
                 question: "Pas kita bagi Smiski couple sebelum ke Korea, bagian mana yang kamu simpen?",
                 options: ["A. Sun (Matahari)", "B. Moon (Bulan)", "C. Star (Bintang)"],
-                correct: 1 // Pilihan B yang bener
+                correct: 1
             },
             {
                 question: "Barang apa yang paling sering aku lupain kalau kita lagi pergi bareng, sampai kamu sengaja bawain pas kita ke Bandung?",
                 options: ["A. Dompet & ID Card", "B. Charger Laptop", "C. Sikat Gigi"],
-                correct: 2 // Pilihan C yang bener
+                correct: 2
             },
             {
                 question: "Di mata aku, kamu itu diibaratkan seperti minuman apa? (Yang manis, ada nutty-nya, tapi bikin selalu addicted)",
                 options: ["A. Matcha Latte", "B. Hazelnut Latte", "C. Americano 100% Logic"],
-                correct: 1 // Pilihan B yang bener
+                correct: 1
             }
         ];
 
@@ -201,18 +235,12 @@
 
         function loadQuestion() {
             var currentQuiz = quizData[currentQuestionIndex];
-            
-            // Update progress header
             document.getElementById("quiz-progress").innerText = "PROTOCOL STATUS: QUESTION " + (currentQuestionIndex + 1) + " OF " + quizData.length;
-            
-            // Update teks pertanyaan
             document.getElementById("question-content").innerText = currentQuiz.question;
             
-            // Bersihkan pilihan jawaban lama
             var optionsBlock = document.getElementById("options-block");
             optionsBlock.innerHTML = "";
             
-            // Tampilkan pilihan jawaban baru
             currentQuiz.options.forEach(function(option, index) {
                 var button = document.createElement("button");
                 button.className = "option-btn";
@@ -221,7 +249,6 @@
                 optionsBlock.appendChild(button);
             });
 
-            // Sembunyikan pesan error setiap ganti soal
             document.getElementById("error-msg").style.display = "none";
         }
 
@@ -229,25 +256,20 @@
             var currentQuiz = quizData[currentQuestionIndex];
             
             if (selectedIndex === currentQuiz.correct) {
-                // Jawabannya bener! Lanjut ke soal berikutnya
                 currentQuestionIndex++;
                 
                 if (currentQuestionIndex < quizData.length) {
                     loadQuestion();
                 } else {
-                    // Semua soal terjawab dengan benar! Bypass sistem
                     document.getElementById("quiz-gate").style.display = "none";
                     document.getElementById("main-content").style.display = "flex";
-                    // Nyalakan musik otomatis setelah interaksi klik terakhir
                     document.getElementById("bg-music").play();
                 }
             } else {
-                // Jawaban salah, tampilkan pesan error
                 document.getElementById("error-msg").style.display = "block";
             }
         }
 
-        // Jalankan fungsi pertama kali saat web dibuka
         window.onload = function() {
             loadQuestion();
         };
