@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 1st Anniversary Book 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f7f3ed;
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- STYLE KUIS INTERAKTIF (DARK THEME) --- */
+        #quiz-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            color: #00ff00;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .quiz-box {
+            background: #252525;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        .quiz-header {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed #00ff00;
+            padding-bottom: 10px;
+        }
+        .question-text {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            background: #111;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .option-btn:hover {
+            background: #00ff00;
+            color: #111;
+        }
+        #error-msg {
+            color: #ff3333;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* --- STYLE SCRAPBOOK UTAMA --- */
+        #main-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .music-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .book-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .page-wrapper {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .page-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+        }
+        .footer-note {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LAYER KUIS -->
+    <div id="quiz-gate">
+        <div class="quiz-box">
+            <div class="quiz-header" id="quiz-progress">QUESTION 1 OF 3</div>
+            <p class="question-text" id="question-content">Loading question...</p>
+            
+            <div class="options-container" id="options-block">
+                <!-- Tombol pilihan ganda bakal muncul otomatis lewat Javascript di bawah -->
+            </div>
+            
+            <p id="error-msg">❌ Akses ditolak. Jawabannya salah, coba pikirkan pakai logika!</p>
+        </div>
+    </div>
+
+    <!-- KONTEN BUKU UTAMA -->
+    <div id="main-content" style="display: none;">
+        <div class="music-container">
+            <!-- Ganti URL di src dengan file mp3 lagu favorit kalian -->
+            <audio id="bg-music" controls loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        </div>
+
+        <div class="book-container">
+            <!-- Halaman 1 -->
+            <div class="page-wrapper">
+                <img class="page-img" src="images/page1.jpg" alt="Page 1">
+            </div>
+            <!-- Halaman 2 -->
+            <div class="page-wrapper">
+                <img class="page-img" src="images/page2.jpg" alt="Page 2">
+            </div>
+            <!-- Halaman 3 -->
+            <div class="page-wrapper">
+                <img class="page-img" src="images/page3.jpg" alt="Page 3">
+            </div>
+            <!-- Tambahin terus blok page-wrapper ke bawah sesuai jumlah foto halaman PDF lo -->
+        </div>
+
+        <div class="footer-note">
+            <p>Made with ❤️ by Elsa | Happy Anniversary ✨</p>
+        </div>
+    </div>
+
+    <!-- LOGIKA JAVASCRIPT KUIS -->
+    <script>
+        // Data pertanyaan, pilihan, dan kunci jawaban yang bener (indeks dimulai dari 0)
+        var quizData = [
+            {
+                question: "Pas kita bagi Smiski couple sebelum ke Korea, bagian mana yang kamu simpen?",
+                options: ["A. Sun (Matahari)", "B. Moon (Bulan)", "C. Star (Bintang)"],
+                correct: 1 // Pilihan B yang bener
+            },
+            {
+                question: "Barang apa yang paling sering aku lupain kalau kita lagi pergi bareng, sampai kamu sengaja bawain pas kita ke Bandung?",
+                options: ["A. Dompet & ID Card", "B. Charger Laptop", "C. Sikat Gigi"],
+                correct: 2 // Pilihan C yang bener
+            },
+            {
+                question: "Di mata aku, kamu itu diibaratkan seperti minuman apa? (Yang manis, ada nutty-nya, tapi bikin selalu addicted)",
+                options: ["A. Matcha Latte", "B. Hazelnut Latte", "C. Americano 100% Logic"],
+                correct: 1 // Pilihan B yang bener
+            }
+        ];
+
+        var currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            var currentQuiz = quizData[currentQuestionIndex];
+            
+            // Update progress header
+            document.getElementById("quiz-progress").innerText = "PROTOCOL STATUS: QUESTION " + (currentQuestionIndex + 1) + " OF " + quizData.length;
+            
+            // Update teks pertanyaan
+            document.getElementById("question-content").innerText = currentQuiz.question;
+            
+            // Bersihkan pilihan jawaban lama
+            var optionsBlock = document.getElementById("options-block");
+            optionsBlock.innerHTML = "";
+            
+            // Tampilkan pilihan jawaban baru
+            currentQuiz.options.forEach(function(option, index) {
+                var button = document.createElement("button");
+                button.className = "option-btn";
+                button.innerText = option;
+                button.onclick = function() { selectAnswer(index); };
+                optionsBlock.appendChild(button);
+            });
+
+            // Sembunyikan pesan error setiap ganti soal
+            document.getElementById("error-msg").style.display = "none";
+        }
+
+        function selectAnswer(selectedIndex) {
+            var currentQuiz = quizData[currentQuestionIndex];
+            
+            if (selectedIndex === currentQuiz.correct) {
+                // Jawabannya bener! Lanjut ke soal berikutnya
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex < quizData.length) {
+                    loadQuestion();
+                } else {
+                    // Semua soal terjawab dengan benar! Bypass sistem
+                    document.getElementById("quiz-gate").style.display = "none";
+                    document.getElementById("main-content").style.display = "flex";
+                    // Nyalakan musik otomatis setelah interaksi klik terakhir
+                    document.getElementById("bg-music").play();
+                }
+            } else {
+                // Jawaban salah, tampilkan pesan error
+                document.getElementById("error-msg").style.display = "block";
+            }
+        }
+
+        // Jalankan fungsi pertama kali saat web dibuka
+        window.onload = function() {
+            loadQuestion();
+        };
+    </script>
+
+</body>
+</html>
